@@ -5,33 +5,23 @@ CREATE OR REPLACE FUNCTION divisible_sum_pairs(miarreglo number_array, numero nu
   modulo number; 
   esDivisible number;
   suma number;
+  contar number;
   
   BEGIN 
 
-    FOR i IN 1..miarreglo.count LOOP  
-      FOR j IN 1..miarreglo.count+1 LOOP 
+    FOR i IN 0..miarreglo.count LOOP  
+      FOR j IN 1..miarreglo.count LOOP 
         suma:=(miarreglo(i) + miarreglo(j));
         modulo:= mod(suma, numero);
         IF modulo = 0 and i < j THEN
-        esDivisible :=1;
+        esDivisible :=1;    
+        contar:=contar+1;
         ELSE
         esDivisible :=0;  
-        END IF;
-        dbms_output.put_line('EL VALOR CALCUALDO ES  '||suma); 
+        END IF;    
       END LOOP;            
     END LOOP;     
     
-   RETURN  suma;
+   RETURN  contar;
    
   END divisible_sum_pairs;
-    
-    
-    
-    declare    
-    a number_array := number_array(1, 3, 2, 6, 1, 2);
-    suma number;
-    begin    
-     suma :=   divisible_sum_pairs(a, 3);
-    
-    end;
-    
